@@ -74,7 +74,7 @@ export interface Config {
    *
    * @default ''
    */
-  serviceAuthority: string;
+  serviceAuthority?: string;
 }
 
 export type FlagdProviderOptions = Partial<Config>;

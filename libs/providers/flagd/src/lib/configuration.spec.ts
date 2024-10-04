@@ -31,7 +31,7 @@ describe('Configuration', () => {
     const resolverType = 'in-process';
     const selector = 'app=weather';
     const offlineFlagSourcePath = '/tmp/flags.json';
-    const servAuthority = 'test-service';
+    const serviceAuthority = 'test-service2';
 
     process.env['FLAGD_HOST'] = host;
     process.env['FLAGD_PORT'] = `${port}`;
@@ -42,7 +42,7 @@ describe('Configuration', () => {
     process.env['FLAGD_SOURCE_SELECTOR'] = `${selector}`;
     process.env['FLAGD_RESOLVER'] = `${resolverType}`;
     process.env['FLAGD_OFFLINE_FLAG_SOURCE_PATH'] = offlineFlagSourcePath;
-    process.env['FLAGD_SERVICE_AUTHORITY'] = servAuthority;
+    process.env['FLAGD_SERVICE_AUTHORITY'] = serviceAuthority;
 
     expect(getConfig()).toStrictEqual({
       host,
@@ -54,7 +54,7 @@ describe('Configuration', () => {
       resolverType,
       selector,
       offlineFlagSourcePath,
-      servAuthority,
+      serviceAuthority,
     });
   });
 
