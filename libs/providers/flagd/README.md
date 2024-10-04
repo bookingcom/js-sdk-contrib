@@ -38,6 +38,7 @@ Options can be defined in the constructor or as environment variables. Construct
 | selector                               | FLAGD_SOURCE_SELECTOR          | string  | -                                                              |                  |
 | cache                                  | FLAGD_CACHE                    | string  | lru                                                            | lru, disabled    |
 | maxCacheSize                           | FLAGD_MAX_CACHE_SIZE           | int     | 1000                                                           |                  |
+| serviceAuthority                       | FLAGD_SERVICE_AUTHORITY        | string  | -                                                              | rpc, in-process  |
 
 #### Resolver type-specific Defaults
 

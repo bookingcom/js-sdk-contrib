@@ -1,4 +1,4 @@
-import { ClientReadableStream, ServiceError, credentials } from '@grpc/grpc-js';
+import { ClientReadableStream, ServiceError, credentials, ClientOptions } from '@grpc/grpc-js';
 import { Logger } from '@openfeature/core';
 import { GeneralError } from '@openfeature/server-sdk';
 import { FlagSyncServiceClient, SyncFlagsRequest, SyncFlagsResponse } from '../../../../proto/ts/flagd/sync/v1/sync';
@@ -28,13 +28,21 @@ export class GrpcFetch implements DataFetch {
   private _isConnected = false;
 
   constructor(config: Config, syncServiceClient?: FlagSyncServiceClient, logger?: Logger) {
-    const { host, port, tls, socketPath, selector } = config;
+    const { host, port, tls, socketPath, selector, serviceAuthority } = config;
+
+    let clientOptions: ClientOptions | undefined;
+    if (serviceAuthority) {
+      clientOptions = {
+        'grpc.default_authority': serviceAuthority,
+      };
+    }
 
     this._syncClient = syncServiceClient
       ? syncServiceClient
       : new FlagSyncServiceClient(
           socketPath ? `unix://${socketPath}` : `${host}:${port}`,
           tls ? credentials.createSsl() : credentials.createInsecure(),
+          clientOptions,
         );
 
     this._logger = logger;
